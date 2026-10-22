@@ -40,4 +40,6 @@ typo can't reach the live site.
 | `sources` | string[] | URLs used to verify the entry |
 | `lastVerified` | string | `YYYY-MM-DD` |
 
-Licensed CC BY 4.0; see `LICENSE` in this directory.
+Licensed under the Open Database License (ODbL 1.0); see `LICENSE` in this
+directory. Share-alike applies: public adaptations of the dataset must be
+offered under the ODbL too.

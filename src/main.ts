@@ -1,6 +1,6 @@
 import './style.css';
 import rawSpaces from '../data/spaces.json';
-import { BOSTON, createMap } from './map';
+import { BOSTON, createMap } from './map/index';
 import { geocode, locateUser, withDistance, type LatLng } from './geo';
 import { activeFilterCount, applyFilters, emptyFilters, type FilterState, type SortKey } from './filters';
 import { initTheme, onSystemThemeChange, toggleTheme } from './theme';
@@ -238,7 +238,7 @@ function select(id: string, opts: { pan: boolean }) {
   });
   if (window.innerWidth < 800) setListOpen(false);
   setFiltersOpen(false);
-  if (opts.pan) mapCtl.flyTo({ lat: s.lat, lng: s.lng }, Math.max(mapCtl.map.getZoom(), 14));
+  if (opts.pan) mapCtl.flyTo({ lat: s.lat, lng: s.lng }, Math.max(mapCtl.getZoom(), 14));
   history.replaceState(null, '', `#space=${encodeURIComponent(id)}`);
 }
 
@@ -254,7 +254,7 @@ function closeDetail() {
   history.replaceState(null, '', location.pathname + location.search);
 }
 els.detailClose.addEventListener('click', closeDetail);
-mapCtl.map.on('click', closeDetail);
+mapCtl.onBackgroundClick(closeDetail);
 
 // ---------- Mobile list sheet ----------
 function setListOpen(open: boolean) {

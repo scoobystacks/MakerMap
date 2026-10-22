@@ -1,10 +1,27 @@
-The contents of this directory (the Maker Map dataset, data/spaces.json) are
-licensed under the Creative Commons Attribution 4.0 International License
-(CC BY 4.0). You may share and adapt the data for any purpose, including
-commercially, as long as you give appropriate credit to "Maker Map
-(jeffreyblitt.com/maker-map)" and indicate if changes were made.
+Maker Map dataset: Open Database License (ODbL) v1.0
 
-Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
+The contents of this directory (the Maker Map database, data/spaces.json and
+any derived data files) are made available under the Open Database License:
+https://opendatacommons.org/licenses/odbl/1-0/
 
-The source code of the site is separately licensed under the MIT License; see
-../LICENSE.
+You are free to share, create works from, and adapt this database, as long as
+you:
+
+  * Attribute: credit "Maker Map (jeffreyblitt.com/maker-map)" and link to
+    this license in any public use of the database or works produced from it.
+  * Share-Alike: if you publicly use an adapted version of this database, or
+    works produced from an adapted version, you must also offer that adapted
+    database under the ODbL.
+  * Keep open: if you redistribute the database or an adapted version, you may
+    use technical measures that restrict the work only if you also redistribute
+    a version without such measures.
+
+Full license text: https://opendatacommons.org/licenses/odbl/1-0/
+
+Suggested attribution:
+  "Contains data from Maker Map (jeffreyblitt.com/maker-map), made available
+  under the Open Database License (ODbL)."
+
+The site's source code is separately licensed under the MIT License; see
+../LICENSE. Map tiles are provided by CARTO using data from OpenStreetMap
+contributors, also under the ODbL.

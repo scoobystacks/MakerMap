@@ -1,5 +1,5 @@
 import { formatDistance } from './geo';
-import { escapeHtml } from './map';
+import { escapeHtml } from './html';
 import { directionsUrl, googleMapsUrl, reportCorrectionUrl } from './links';
 import {
   ACCESS_DESCRIPTIONS,

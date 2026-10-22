@@ -66,11 +66,13 @@ embeds the GitHub Pages site:
 ## Project layout
 
 ```
-data/spaces.json        the dataset (CC BY 4.0)
+data/spaces.json        the dataset (ODbL)
 data/README.md          schema and contribution rules
 scripts/validate-data.mjs  schema check run by `npm run build`
 src/main.ts             app wiring: location, search, filters, detail panel
-src/map.ts              Leaflet map, pins, tile themes
+src/map/types.ts        the map interface the app codes against
+src/map/leaflet.ts      Leaflet adapter (pins, user marker, tile themes)
+src/map/index.ts        provider registry; swap libraries here
 src/filters.ts          filtering and sorting
 src/geo.ts              distance, geolocation, Nominatim geocoding
 src/ui.ts               HTML rendering for list, detail, filter controls
@@ -78,8 +80,18 @@ src/theme.ts            light/dark toggle
 src/types.ts            data types and label tables
 ```
 
+## Swapping the map library
+
+`src/main.ts` only talks to the `MapController` interface in
+`src/map/types.ts`. Leaflet lives entirely in `src/map/leaflet.ts`. To try
+another library, write a second adapter (for example `src/map/maplibre.ts`),
+register it in `src/map/index.ts`, and build with
+`VITE_MAP_PROVIDER=maplibre`. Pin styling is plain CSS in `src/style.css`
+(`.pin`, `.you-marker`), so an adapter that renders HTML markers can reuse it.
+
 ## License
 
-Code: [MIT](LICENSE). Data: [CC BY 4.0](data/LICENSE).
+Code: [MIT](LICENSE). Data: [ODbL 1.0](data/LICENSE), the same share-alike
+license OpenStreetMap uses, so improvements to the dataset stay open.
 Map tiles © [OpenStreetMap](https://www.openstreetmap.org/copyright)
 contributors, © [CARTO](https://carto.com/attributions).
