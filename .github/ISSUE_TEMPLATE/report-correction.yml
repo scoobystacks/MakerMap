@@ -1,0 +1,32 @@
+name: Report a correction
+description: Something on an existing entry is wrong or out of date.
+title: "Correction: "
+labels: [correction]
+body:
+  - type: input
+    id: space
+    attributes:
+      label: Which space?
+      description: Name (and id, if you came from the map).
+    validations:
+      required: true
+  - type: dropdown
+    id: field
+    attributes:
+      label: What's wrong?
+      multiple: true
+      options:
+        - Location or address
+        - Access type or pricing
+        - Hours
+        - Equipment list
+        - Links
+        - It has closed
+        - Something else
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What should it say instead? A link to the source helps a lot.
+    validations:
+      required: true

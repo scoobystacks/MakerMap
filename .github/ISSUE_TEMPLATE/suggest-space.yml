@@ -1,0 +1,45 @@
+name: Suggest a space
+description: Know a makerspace, fab lab, library maker lab, or shared shop that's missing? Tell us about it.
+title: "New space: "
+labels: [new-space]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! Only the name and website are required. Anything else you know helps us verify it faster.
+  - type: input
+    id: name
+    attributes:
+      label: Name of the space
+    validations:
+      required: true
+  - type: input
+    id: website
+    attributes:
+      label: Website
+      placeholder: https://
+    validations:
+      required: true
+  - type: input
+    id: address
+    attributes:
+      label: Street address
+  - type: dropdown
+    id: access
+    attributes:
+      label: How do people get access?
+      options:
+        - Free & public (open at no cost, maybe with a library card)
+        - Paid access (memberships, day passes, punch cards, hourly rental)
+        - Members only (a university, company, or community group)
+        - Not sure
+  - type: textarea
+    id: equipment
+    attributes:
+      label: Equipment you know about
+      placeholder: Laser cutter, 3D printers, sewing machines, woodshop…
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      placeholder: Hours, how to join, how long it's been around, your relationship to the space, etc.

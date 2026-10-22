@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#1F96D3" />
+    <title>Maker Map</title>
+    <meta name="description" content="Find makerspaces, fab labs, and community shops near you. Color-coded by how you can get access." />
+    <meta property="og:title" content="Maker Map" />
+    <meta property="og:description" content="Find makerspaces, fab labs, and community shops near you." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2c-5.5 0-10 4.4-10 9.9C6 19.5 16 30 16 30s10-10.5 10-18.1C26 6.4 21.5 2 16 2z' fill='%231F96D3'/%3E%3Ccircle cx='16' cy='12' r='4' fill='%23fff'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <a class="brand" href="https://jeffreyblitt.com" title="Jeffrey Blitt">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-text">Maker Map</span>
+        </a>
+        <div class="search" role="search">
+          <input id="search" type="search" placeholder="Search spaces, tools, or a place…" autocomplete="off" aria-label="Search spaces or go to a place" />
+          <button id="locate" class="icon-btn" type="button" title="Use my location" aria-label="Use my location">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19a7 7 0 1 1 0-14 7 7 0 0 1 0 14z"/></svg>
+          </button>
+        </div>
+        <div class="topbar-actions">
+          <button id="filters-toggle" class="icon-btn" type="button" aria-expanded="false" aria-controls="filters" title="Filters">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M3 5h18v2H3zm3 6h12v2H6zm4 6h4v2h-4z"/></svg>
+            <span class="badge" id="filter-count" hidden>0</span>
+          </button>
+          <button id="theme-toggle" class="icon-btn" type="button" title="Toggle dark mode" aria-label="Toggle dark mode">
+            <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5h0l1 3h-2zm0 20l-1-3h2zM2 12l3-1v2zm20 0l-3 1v-2zM4.2 4.2l2.9 1.5-1.4 1.4zm15.6 15.6l-2.9-1.5 1.4-1.4zM4.2 19.8l1.5-2.9 1.4 1.4zm15.6-15.6l-1.5 2.9-1.4-1.4z"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12.3 2a9.9 9.9 0 0 0-1.6.1 8 8 0 0 0 9.2 11.2A10 10 0 1 1 12.3 2z"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <aside id="filters" class="filters" hidden>
+        <div class="filters-head">
+          <h2>Filters</h2>
+          <button id="filters-clear" class="link-btn" type="button">Clear all</button>
+          <button id="filters-close" class="icon-btn" type="button" aria-label="Close filters">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M18.3 5.7L12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7l1.4-1.4L10.6 10.6l6.3-6.3z"/></svg>
+          </button>
+        </div>
+        <fieldset class="filter-group" id="filter-access">
+          <legend>Access type</legend>
+        </fieldset>
+        <fieldset class="filter-group" id="filter-equipment">
+          <legend>Equipment</legend>
+          <p class="hint">Show spaces with <strong>any</strong> of the selected tools.</p>
+        </fieldset>
+        <fieldset class="filter-group" id="filter-venue">
+          <legend>Kind of place</legend>
+        </fieldset>
+        <fieldset class="filter-group">
+          <legend>Distance</legend>
+          <label class="range-label" for="filter-radius"><span>Within</span> <output id="radius-out">any distance</output></label>
+          <input id="filter-radius" type="range" min="1" max="51" step="1" value="51" />
+        </fieldset>
+      </aside>
+
+      <main class="content">
+        <div id="map" class="map" role="region" aria-label="Map of makerspaces"></div>
+        <section id="list" class="list" aria-label="Spaces">
+          <div class="list-head">
+            <span id="result-count" class="result-count" aria-live="polite">Loading…</span>
+            <label class="sort-label">Sort
+              <select id="sort" aria-label="Sort spaces">
+                <option value="distance">Nearest</option>
+                <option value="name">Name</option>
+                <option value="access">Access type</option>
+              </select>
+            </label>
+          </div>
+          <ul id="results" class="results"></ul>
+          <div class="list-foot">
+            <a id="suggest-link" class="btn" href="#" target="_blank" rel="noopener">Suggest a space</a>
+            <p class="foot-note">Know a space we're missing? Spotted a mistake? Every entry has a "report a correction" link.</p>
+            <p class="foot-note"><a id="about-link" href="#">About this map</a> · Data CC BY 4.0 · Code MIT · <a id="source-link" href="#" target="_blank" rel="noopener">Source</a></p>
+          </div>
+        </section>
+        <button id="list-toggle" class="list-toggle" type="button" aria-expanded="false" aria-controls="list">
+          <span class="grabber" aria-hidden="true"></span>
+          <span id="list-toggle-label">Show list</span>
+        </button>
+      </main>
+
+      <div id="detail" class="detail" hidden role="dialog" aria-modal="false" aria-labelledby="detail-title">
+        <div class="detail-inner">
+          <button id="detail-close" class="icon-btn detail-close" type="button" aria-label="Close details">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M18.3 5.7L12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7l1.4-1.4L10.6 10.6l6.3-6.3z"/></svg>
+          </button>
+          <div id="detail-body"></div>
+        </div>
+      </div>
+
+      <div id="about" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="about-title">
+        <div class="modal-card">
+          <button id="about-close" class="icon-btn detail-close" type="button" aria-label="Close">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M18.3 5.7L12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7l1.4-1.4L10.6 10.6l6.3-6.3z"/></svg>
+          </button>
+          <h2 id="about-title">About Maker Map</h2>
+          <p>Maker Map is a community directory of makerspaces, fab labs, library maker labs, and shared shops. Pins are color-coded by how you can get in:</p>
+          <ul class="legend">
+            <li><span class="dot dot-free"></span><strong>Free &amp; public</strong>: open at no cost, often at public libraries.</li>
+            <li><span class="dot dot-paid"></span><strong>Paid access</strong>: open to anyone through memberships, day passes, punch cards, or hourly rental.</li>
+            <li><span class="dot dot-restricted"></span><strong>Members only</strong>: limited to a university, company, or community group.</li>
+          </ul>
+          <p>Hours, prices, and equipment change. Always check the space's own site before you go. Each entry notes when it was last verified.</p>
+          <p>Your location never leaves your device. It is only used to center the map and sort by distance.</p>
+          <p>Built by <a href="https://jeffreyblitt.com" target="_blank" rel="noopener">Jeffrey Blitt</a>. The code is MIT licensed and the data is CC BY 4.0. Map tiles by <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors and <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>.</p>
+        </div>
+      </div>
+
+      <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
