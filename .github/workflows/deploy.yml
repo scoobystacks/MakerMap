@@ -2,7 +2,9 @@ name: Build and deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    # The github-pages environment currently only allows the branch below.
+    # Once its deployment-branch rule includes main, drop the second entry.
+    branches: [main, claude/maker-map-interactive-tool-640gqs]
   pull_request:
   workflow_dispatch:
 
