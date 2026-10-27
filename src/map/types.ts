@@ -39,10 +39,14 @@ export type MapFactory = (el: HTMLElement, opts: MapOptions) => MapController;
 
 /** Tile attribution shared by every adapter. */
 export const ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-/** CARTO raster basemaps: free for low-volume use, no key, light + dark variants. */
+/**
+ * OpenStreetMap's standard raster tiles: no key, no watermark. Light use on a
+ * small site is within their tile usage policy. There is no dark variant, so
+ * adapters darken the light tiles with the `.tiles-dark` CSS filter instead.
+ */
 export const RASTER_TILES = {
-  light: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-  dark: 'https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png',
+  url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+  maxZoom: 19,
 } as const;

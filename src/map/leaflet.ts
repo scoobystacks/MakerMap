@@ -18,7 +18,11 @@ export function createLeafletMap(el: HTMLElement, opts: MapOptions): MapControll
   map.zoomControl.setPosition('bottomright');
 
   const makeTiles = () =>
-    L.tileLayer(RASTER_TILES[currentTheme()], { attribution: ATTRIBUTION, maxZoom: 19, subdomains: 'abcd' });
+    L.tileLayer(RASTER_TILES.url, {
+      attribution: ATTRIBUTION,
+      maxZoom: RASTER_TILES.maxZoom,
+      className: currentTheme() === 'dark' ? 'tiles-dark' : '',
+    });
   let tiles = makeTiles().addTo(map);
 
   interface Entry { marker: L.Marker; space: Space }

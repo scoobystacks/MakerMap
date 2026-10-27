@@ -20,7 +20,7 @@ npm run build      # validates data, type-checks, builds to dist/
 npm run preview    # serves the production build
 ```
 
-No API keys. Map tiles come from CARTO (OpenStreetMap data), place search uses
+No API keys. Map tiles come from OpenStreetMap's tile server, place search uses
 Nominatim, and the user's location never leaves the browser.
 
 ## Adding or fixing a space
@@ -94,4 +94,4 @@ register it in `src/map/index.ts`, and build with
 Code: [MIT](LICENSE). Data: [ODbL 1.0](data/LICENSE), the same share-alike
 license OpenStreetMap uses, so improvements to the dataset stay open.
 Map tiles © [OpenStreetMap](https://www.openstreetmap.org/copyright)
-contributors, © [CARTO](https://carto.com/attributions).
+contributors.

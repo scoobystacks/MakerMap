@@ -23,5 +23,5 @@ Suggested attribution:
   under the Open Database License (ODbL)."
 
 The site's source code is separately licensed under the MIT License; see
-../LICENSE. Map tiles are provided by CARTO using data from OpenStreetMap
-contributors, also under the ODbL.
+../LICENSE. Map tiles are served by OpenStreetMap, whose data is also under
+the ODbL.

@@ -422,6 +422,8 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 
 /* ---------- Leaflet tweaks ---------- */
 .leaflet-container { font-family: var(--font); background: var(--bg-muted); }
+/* OSM only serves light tiles; invert + hue-rotate makes a serviceable dark basemap. */
+.tiles-dark { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9) saturate(0.55); }
 .leaflet-control-zoom { display: none; }
 .leaflet-bar a { background: var(--bg-elev); color: var(--text); border-bottom-color: var(--border) !important; }
 .leaflet-control-attribution { background: color-mix(in srgb, var(--bg-elev) 85%, transparent) !important; color: var(--text-muted) !important; font-size: 10px !important; }
